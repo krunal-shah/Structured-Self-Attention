@@ -30,7 +30,7 @@ def train(attention_model,train_loader,criterion,optimizer,epochs = 5,use_regula
        
         for batch_idx,train in enumerate(train_loader):
             
-            print(batch_idx)
+            print(batch_idx, " out of ", len(train_loader))
             attention_model.hidden_state = attention_model.init_hidden()
             x,y = Variable(train[0]),Variable(train[1])
             y_pred,att = attention_model(x)
