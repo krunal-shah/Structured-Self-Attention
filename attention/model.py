@@ -105,8 +105,11 @@ class StructuredSelfAttention(torch.nn.Module):
         x = torch.bmm(x, y.unsqueeze(2))
         x = self.softmax(x,1)
         attention = x.transpose(1,2)       
-        sentence_embeddings = attention@outputs       
-        avg_sentence_embeddings = torch.sum(sentence_embeddings,1)/self.r
+        print(attention.size())
+        sentence_embeddings = torch.bmm(outputs.transpose(1,2), attention)
+        avg_sentence_embeddings = sentence_embeddings
+        print(sentence_embeddings.size())
+        # avg_sentence_embeddings = torch.sum(sentence_embeddings,1)/self.r
        
         if not bool(self.type):
             output = F.sigmoid(self.linear_final(avg_sentence_embeddings))
