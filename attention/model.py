@@ -101,7 +101,7 @@ class StructuredSelfAttention(torch.nn.Module):
         embeddings = self.embeddings(x)       
         outputs, self.hidden_state = self.lstm(embeddings.view(self.batch_size,self.max_len,-1),self.hidden_state)       
         x = F.tanh(self.linear_first(outputs))       
-        y = torch.avg(self.linear_second(outputs), dim=1)
+        y = self.linear_second(outputs).mean(1)
         print(x.size())
         print(y.size())
         x = torch.bmm(x, y)
