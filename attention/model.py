@@ -101,8 +101,11 @@ class StructuredSelfAttention(torch.nn.Module):
         embeddings = self.embeddings(x)       
         outputs, self.hidden_state = self.lstm(embeddings.view(self.batch_size,self.max_len,-1),self.hidden_state)       
         x = F.tanh(self.linear_first(outputs))       
-        x = self.linear_second(x)       
-        x = self.softmax(x,1)       
+        print(y.size())
+        y = self.avg(self.linear_second(outputs), dim=1)
+        print(x.size())
+        x = torch.bmm(x, y)
+        x = self.softmax(x,1)
         attention = x.transpose(1,2)       
         sentence_embeddings = attention@outputs       
         avg_sentence_embeddings = torch.sum(sentence_embeddings,1)/self.r
