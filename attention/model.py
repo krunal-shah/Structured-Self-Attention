@@ -127,7 +127,6 @@ class StructuredSelfAttention(torch.nn.Module):
         print(x.size())
         x = self.softmax(x,1)
         print(x.size())
-        print(attention.size())
         sentence_embeddings = torch.bmm(outputs.transpose(1,2), x)
         avg_sentence_embeddings = sentence_embeddings.squeeze(2)
         print(sentence_embeddings.size())
