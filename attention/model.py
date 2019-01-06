@@ -39,7 +39,8 @@ class StructuredSelfAttention(torch.nn.Module):
         self.lstm = torch.nn.LSTM(emb_dim,lstm_hid_dim,1,batch_first=True)
         self.linear_first = torch.nn.Linear(lstm_hid_dim,d_a)
         self.linear_first.bias.data.fill_(0)
-        self.linear_second = torch.nn.Linear(lstm_hid_dim,d_a)
+        # self.linear_second = torch.nn.Linear(lstm_hid_dim,d_a)
+        self.linear_second = torch.nn.Linear(d_a,r)
         self.linear_second.bias.data.fill_(0)
         self.n_classes = n_classes
         self.linear_final = torch.nn.Linear(lstm_hid_dim,self.n_classes)
