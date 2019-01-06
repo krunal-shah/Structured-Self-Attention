@@ -67,6 +67,7 @@ def train(attention_model,train_loader,criterion,optimizer,epochs = 5,use_regula
                
  
             total_loss+=loss.data
+            print("avg_loss is",total_loss/n_batches)
             optimizer.zero_grad()
             loss.backward()
            
@@ -76,7 +77,7 @@ def train(attention_model,train_loader,criterion,optimizer,epochs = 5,use_regula
             optimizer.step()
             n_batches+=1
            
-        print("avg_loss is",total_loss/n_batches)
+        print("avg epoch loss is",total_loss/n_batches)
         print("Accuracy of the model",float(correct)/float((n_batches*train_loader.batch_size)))
         losses.append(total_loss/n_batches)
         accuracy.append(correct/(n_batches*train_loader.batch_size))
